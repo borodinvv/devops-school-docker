@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+  apache:
+    image: localhost:5000/apache-web-server:1.0
+    ports:
+      - "8888:80"
+    volumes:
+      - ./site:/var/www/html
+    networks:
+      - apache-net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.3'
+          memory: 128M
+
+
+  nginx:
+    image: localhost:5000/nginx-web-server:1.0
+    ports:
+      - "8080:80"
+    volumes:
+      - ./site:/usr/share/nginx/html
+    networks:
+      - nginx-net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.4'
+          memory: 256M
+
+
+networks:
+    apache-net:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+              - subnet: 10.10.10.0/24
+                gateway: 10.10.10.1
+    nginx-net:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+              - subnet: 20.20.20.0/24
+                gateway: 20.20.20.1

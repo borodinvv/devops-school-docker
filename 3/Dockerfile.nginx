@@ -1,0 +1,7 @@
+FROM nginx:alpine
+
+MAINTAINER Vladislav Borodin <vladislav_borodin@epam.com>
+
+COPY $PWD/nginx.conf /etc/nginx/nginx.conf
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

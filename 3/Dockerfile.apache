@@ -1,0 +1,9 @@
+FROM centos:latest
+
+MAINTAINER Vladislav Borodin <vladislav_borodin@epam.com>
+
+RUN yum install httpd -y
+
+COPY ./httpd.conf  /usr/local/apache2/conf/httpd.conf
+
+ENTRYPOINT ["/usr/sbin/httpd","-D","FOREGROUND"]
