@@ -2,27 +2,29 @@
 
 Задача: развернуть приложение "2048".
 
-## Запускаем контейнер с local registry
+## Клонируем репозиторий с приложением
 
 ```bash
-$ docker run -d -p 5000:5000 --restart=always --name registry registry:2
+$ git clone git@github.com:gabrielecirulli/2048.git
 ```
 
-## Создаем образ NGINX и добавляем в local registry
+## Создаем Dockerfile
 
 ```bash
-$ docker build -t nginx-web-server:latest -t nginx-web-server:1.0 -f Dockerfile.nginx .
-$ docker image tag nginx-web-server:1.0 localhost:5000/nginx-web-server:1.0 
-$ docker push localhost:5000/nginx-web-server:1.0
-```
-## Создаем образ APACHE и добавляем в local registry
-```bash
-$ docker build -t apache-web-server:latest -t apache-web-server:1.0 -f Dockerfile.apache .
-$ docker image tag apache-web-server:1.0 localhost:5000/apache-web-server:1.0 
-$ docker push localhost:5000/apache-web-server:1.0
-```
+FROM nginx:alpine
 
-## Запускаем сервис через Docker-compose
-```bash
-$ docker-compose up -d
+MAINTAINER Vladislav Borodin <vladislav_borodin@epam.com>
+
+COPY $PWD/2048 /usr/share/nginx/html
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
 ```
+ 
+## Собираем образ и запускаем контейнер 
+
+```bash
+$ docker build -t 2048-vvb .
+$ docker run -d --name 2048 -p 8181:80 2048-vvb
+```
+## Скриншот
+![alt text](https://github.com/borodinvv/devops-school-docker/tree/master/3/2048.png)
