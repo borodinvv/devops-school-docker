@@ -27,4 +27,4 @@ $ docker build -t 2048-vvb .
 $ docker run -d --name 2048 -p 8181:80 2048-vvb
 ```
 ## Скриншот
-![alt text](https://github.com/borodinvv/devops-school-docker/tree/master/1/2048.png)
+![alt text](https://github.com/borodinvv/devops-school-docker/raw/master/1/2048.png)
